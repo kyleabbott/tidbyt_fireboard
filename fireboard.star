@@ -9,9 +9,14 @@ load("http.star", "http")
 
 FIREBOARD_ICON = base64.decode("R0lGODdhDwAWAMZgAAAAAAUCAlgsJQkEA51MPplJPJlKPDMoJgkHB5ZUSRsPDQgEA5NAMxoLCZNCNRoMCQ0JCUk3MxEODgYFBZhWS3xORjAeGxoOC5RNQYE0KDIUDxoODJRNQoE3KjIVEIE2KgEAACcWE2Y5MjQeGoZNRDMdGoNMQwEBAYQ4LDUYEwICApZENx0PDQsGBZtLPgoFBR4QDjYgHIJMQ0IyMOF/bqdzalxBPemBb4xsZ3FHQOF7alZFQo5SSLddThcODa1eUZ1USA4JCFIvKfuYiMR6bnI/N/+ciqlvZYtLQP+fjothWqdZTPyhkW9STsRoWfehk1A/PBsSEa2DfGVLRyYYFbyOh0s6NzQgHcCUjTUrKUgtKLKLhScgH1g2MJBwaxwZGP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ywAAAAADwAWAAAHo4AAgoOEhYYBAgGGhicEJ4uFJwWPkIMnBpSQByqXmYsJACqYlQAMoaOVDqePEYUSEwCqoioAFIUVgrIGtBiFGbmntByFHcCzAMOEH8a7yIIggsuxwc4AItHMwoIk2NPHySbdsgW8guEnKKErgi6PyTIAMzQ1Njc4OTo7PD0+P0BBQoYQKWLkCJIkSpYwaeLkCZQoUqZQqWLlCpYsWrZw6eLlSyAAOw==")
 
+YODER_IMAGE = base64.decode("/9j/4AAQSkZJRgABAQEBLAEsAAD/4Qx3aHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA0LjQuMC1FeGl2MiI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOkdJTVA9Imh0dHA6Ly93d3cuZ2ltcC5vcmcveG1wLyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6YTUwY2Q5NjUtNDg2YS00YmNiLWE3YTMtZWFlNjk3YjU3ZGViIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQwZmMzMDY1LTE0NTEtNGUwOS1iNzAzLWM5MGZhZjlmYTVmNiIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOmYwZWI1NzMwLTgxMzYtNDdjMi1hYTBhLTVlODlhZmI5NGE2YSIgZGM6Rm9ybWF0PSJpbWFnZS9qcGVnIiBHSU1QOkFQST0iMi4wIiBHSU1QOlBsYXRmb3JtPSJMaW51eCIgR0lNUDpUaW1lU3RhbXA9IjE2NzgxNDI1OTU4MzgwNTgiIEdJTVA6VmVyc2lvbj0iMi4xMC4zMCIgeG1wOkNyZWF0b3JUb29sPSJHSU1QIDIuMTAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6Y2hhbmdlZD0iLyIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDowOGRlM2UwMC1kYjk0LTQyZTUtYWIxMC02ODYwZGRmMjgyODIiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkdpbXAgMi4xMCAoTGludXgpIiBzdEV2dDp3aGVuPSIyMDIzLTAzLTA2VDE2OjQzOjE1LTA2OjAwIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8P3hwYWNrZXQgZW5kPSJ3Ij8+/+ICsElDQ19QUk9GSUxFAAEBAAACoGxjbXMEMAAAbW50clJHQiBYWVogB+cAAwAGABYAJQAjYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1sY21zAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANZGVzYwAAASAAAABAY3BydAAAAWAAAAA2d3RwdAAAAZgAAAAUY2hhZAAAAawAAAAsclhZWgAAAdgAAAAUYlhZWgAAAewAAAAUZ1hZWgAAAgAAAAAUclRSQwAAAhQAAAAgZ1RSQwAAAhQAAAAgYlRSQwAAAhQAAAAgY2hybQAAAjQAAAAkZG1uZAAAAlgAAAAkZG1kZAAAAnwAAAAkbWx1YwAAAAAAAAABAAAADGVuVVMAAAAkAAAAHABHAEkATQBQACAAYgB1AGkAbAB0AC0AaQBuACAAcwBSAEcAQm1sdWMAAAAAAAAAAQAAAAxl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")
+
+
 YELLOW_TEXT_COLOR = "#ffea00"
 BLUE_TEXT_COLOR = "#0084ff"
 RED_TEXT_COLOR = "#c20000"
+
+RECENT_TEMP_AGE_MIN = 10
 
 LOGIN_URL = "https://fireboard.io/api/rest-auth/login/"
 DEVICES_URL = "https://fireboard.io/api/v1/devices.json"
@@ -38,7 +43,7 @@ def get_request_header(user):
     token = cache.get(get_cache_key(user, "auth"))
     return {"Authorization": "Token " + token}
 
-def handle_device_response(resp):
+def handle_device_response(user, resp):
 #    resp = json.decode(response)
     print("handle device response")
     print("num devices: " + str(len(resp)))
@@ -47,13 +52,16 @@ def handle_device_response(resp):
         print("num channels: " + str(len(dev["channels"])))
         if dev["last_templog"]:
             last_time = time_from_str(dev["last_templog"])
+            if minutes_since_time(last_time) < RECENT_TEMP_AGE_MIN:
+                print("recent temp update, setting active device uuid: " + dev["uuid"])
+                cache.set(get_cache_key(user, "active_device"), dev["uuid"], ttl_seconds = 10 * 60)
             print("last time: " + str(last_time) + " (" + str(minutes_since_time(last_time)) + " min)")
             t1 = time_from_str("2023-03-06T19:37:05Z")
             print("minutes: " + str(minutes_since_time(t1)))
 
 def check_devices(user):
     # TODO: remove this
-    handle_device_response(json.decode(DEVICE_RESPONSE))
+    handle_device_response(user, json.decode(DEVICE_RESPONSE))
     return True
     
     print("making devices request")
@@ -63,7 +71,7 @@ def check_devices(user):
              (res.status_code, res.body()))
         return False
 
-    handle_device_response(res.json())
+    handle_device_response(user, res.json())
 
 def check_login(user, passwd):
     # TODO: remove this
@@ -87,8 +95,11 @@ def check_login(user, passwd):
         return True
     
     return False
-    
+
+
 def main(config):
+
+    # Step 1: login / get token
     user = config.str("username")
     passwd = config.str("password")
     if (user == None) or (user == "") or (passwd == None) or (passwd == ""):
@@ -100,8 +111,33 @@ def main(config):
         return render.Root(
             child = render.WrappedText("Unable to login to fireboard", width = 50),
         )
-    
+
+    # Step 2: get active device
     check_devices(user)
+
+    # Step 3: get temps
+    # Step 4: render
+
+    return render.Root(
+        render.Stack(children=[
+            render.Image(src=YODER_IMAGE),
+            render.Padding(pad=(1,0,6,0), child=render.Column(children=[
+                    render.Text("Pit ", color=BLUE_TEXT_COLOR),
+                    render.Text("225", color=YELLOW_TEXT_COLOR),
+                    ]),
+                ),
+            render.Padding(pad=(1,22,1,0), child=render.Marquee(render.Row(children=[
+                    render.Text("Probe1: ", color=BLUE_TEXT_COLOR),
+                    render.Text("118", color=YELLOW_TEXT_COLOR),
+                    render.Text("  "),
+                    render.Text("Probe2: ", color=BLUE_TEXT_COLOR),
+                    render.Text("164", color=YELLOW_TEXT_COLOR),
+                ]),
+            width=62)
+            ),
+        ])
+    )
+
 
     return render.Root(
         child = render.Stack(children=[
@@ -114,8 +150,7 @@ def main(config):
                     ]),
                     width=46),
             ])),
-            render.Padding(pad=(1,23,1,1), child=render.Column(children=[
-                render.Marquee(render.Row(children=[
+            render.Padding(pad=(1,23,1,1), child=render.Marquee(render.Row(children=[
                     render.Text("Probe1: "),
                     render.Text("118", color=BLUE_TEXT_COLOR),
                     render.Text("  "),
@@ -123,13 +158,9 @@ def main(config):
                     render.Text("164", color=BLUE_TEXT_COLOR),
                 ]),
                 width=62),
-            ])),
+            ),
         ])
     )
-#    return []
-#    return render.Root(
-#        child = render.Text("Hello, World!"),
-#    )
 
 
 def get_schema():
